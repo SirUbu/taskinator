@@ -14,9 +14,11 @@
         <p>Click the button below to add a new task!</p>
         <!-- new task addition form and button -->
         <form id="task-form">
+            <!-- task name -->
             <div class="form-group">
                 <input type="text" name="task-name" class="text-input" placeholder="Enter Task Name" />
             </div>
+            <!-- tasks type option list -->
             <div class="form-group">
                 <select name="task-type" class="select-dropdown">
                     <option value="" disabled selected>Pick a task type</option>
@@ -25,6 +27,7 @@
                     <option value="Mobile">Mobile</option>
                 </select>
             </div>
+            <!-- add task button -->
             <div class="form-group">
                 <button class="btn" id="save-task" type="submit">Add Task</button>
             </div>
@@ -32,9 +35,20 @@
     </header>
 
     <main class="page-content">
+        <!-- tasks to do list -->
         <section class="task-list-wrapper">
             <h2 class="list-title">Tasks To Do</h2>
             <ul class="task-list" id="tasks-to-do"></ul>
+        </section>
+        <!-- tasks in progress list -->
+        <section class="task-list-wrapper">
+            <h2 class="list-title">Tasks In Progress</h2>
+            <ul class="task-list" id="tasks-in-progress"></ul>
+        </section>
+        <!-- tasks completed list -->
+        <section class="task-list-wrapper">
+            <h2 class="list-title">Tasks Completed</h2>
+            <ul class="task-list" id="tasks-completed"></ul>
         </section>
     </main>
 
