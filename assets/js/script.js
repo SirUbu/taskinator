@@ -22,13 +22,22 @@ var taskFormHandler = function (event) {
     }
     // reset the form inputs so that a new task can be made
     formEl.reset();
-    // package up data as am object
-    var taskDataObj = {
-        name: taskNameInput,
-        type: taskTypeInput
+    // check form data is for an existing task being edited
+    var isEdit = formEl.hasAttribute("data-task-id");
+    // if existing task, get task id and call function to complete edit process
+    if(isEdit) {
+        var taskId = formEl.getAttribute("data-task-id");
+        completeEditTask(taskNameInput, taskTypeInput, taskId);
+    // if new task
+    } else {
+        // package up data as an object
+        var taskDataObj = {
+            name: taskNameInput,
+            type: taskTypeInput
+        };
+        // send object to createTaskEl
+        createTaskEl(taskDataObj);
     }
-    // send object to createTaskEl
-    createTaskEl(taskDataObj);
 };
 
 // function to set new list item data
@@ -108,7 +117,7 @@ var taskButtonHandler = function(event) {
     }
 };
 
-// function that edits the task
+// function that start to edit the task
 var editTask = function(taskId) {
     // get task list item element by taskId of button clicked
     var taskSelected = document.querySelector(`.task-item[data-task-id="${taskId}"]`);
@@ -121,6 +130,19 @@ var editTask = function(taskId) {
     document.querySelector("#save-task").textContent = "Save Task";
     // add taskId to the form for task being changed
     formEl.setAttribute("data-task-id", taskId);
+};
+
+// function to complete the edit of the task
+var completeEditTask = function(taskName, taskType, taskId) {
+    // find task that is being edited
+    var taskSelected = document.querySelector(`.task-item[data-task-id="${taskId}"]`);
+    // set new values to task
+    taskSelected.querySelector("h3.task-name").textContent = taskName;
+    taskSelected.querySelector("span.task-type").textContent = taskType;
+    alert("Task Updated!");
+    // reset form and change button back
+    formEl.removeAttribute("data-task-id");
+    document.querySelector("#save-task").textContent = "Add Task";
 };
 
 // function that deletes the task
