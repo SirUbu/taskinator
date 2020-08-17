@@ -1,15 +1,32 @@
+// get the entire for input for the task submit, store in var
 var formEl = document.querySelector("#task-form");
+// get the task "To Do" section list, store in var
 var tasksToDoEl = document.querySelector("#tasks-to-do");
 
 // new task creation function
 var createTaskHandler = function (event) {
+    // prevent default browser action (don't want refresh)
     event.preventDefault();
-    var taskItemEl = document.createElement("li");
-    taskItemEl.className = "task-item";
-    taskItemEl.textContent = "This is a new task.";
-    tasksToDoEl.appendChild(taskItemEl);
+    // get the "Task Name" input
+    var taskNameInput = document.querySelector("input[name='task-name']").value;
+    // get the "Task Type" input
+    var taskTypeInput = document.querySelector("select[name='task-type']").value;
+    // crete a new list item to be set
+    var listItemEl = document.createElement("li");
+    // give class name to new list item 
+    listItemEl.className = "task-item";
+    // create div to hold task info and add to list item
+    var taskInfoEl = document.createElement("div");
+    // give new div a class name name
+    taskInfoEl.className = "task-info"
+    // add HTML content including task name and input to div
+    taskInfoEl.innerHTML = `<h3 class="task-name">${taskNameInput}</h3><span class="task-type">${taskTypeInput}</span>`;
+    // append newly created div to bottom/child of created list item
+    listItemEl.appendChild(taskInfoEl);
+    // add entire list item to list
+    tasksToDoEl.appendChild(listItemEl);
 };
 
-// observe the click event listener behavior specific to the button and run createTaskHandler function
+// observe submit event listener behavior specific to the button, then run createTaskHandler function
 formEl.addEventListener("submit", createTaskHandler);
 
