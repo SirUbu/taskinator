@@ -1,21 +1,23 @@
-// get the entire for input for the task submit, store in var
+// get the entire form input for the task submit, store in var
 var formEl = document.querySelector("#task-form");
 // get the task "To Do" section list, store in var
 var tasksToDoEl = document.querySelector("#tasks-to-do");
 // var for taskIdCounter
 var taskIdCounter = 0;
+// get the main section of the page, store in var
+var pageContentEl = document.querySelector("#page-content");
 
-// function to get new list item from input form 
+// function to get new list items from input form 
 var taskFormHandler = function (event) {
     // prevent default browser action (don't want refresh)
     event.preventDefault();
     // get the "Task Name" input
-    var taskNameInput = document.querySelector("input[name='task-name']").value;
+    var taskNameInput = document.querySelector(`input[name="task-name"]`).value;
     // get the "Task Type" input
-    var taskTypeInput = document.querySelector("select[name='task-type']").value;
+    var taskTypeInput = document.querySelector(`select[name="task-type"]`).value;
     /// check if input values are empty strings (falsy)
     if(!taskNameInput || !taskTypeInput) {
-        alert("you need to fill out the task from!");
+        alert("You need to fill out the task from!");
         return false;
     }
     // reset the form inputs so that a new task can be made
@@ -54,7 +56,7 @@ var createTaskEl = function(taskDataObj) {
     taskIdCounter++;
 };
 
-// function to add form elements to each newly created task
+// function to add form elements (buttons and drop downs) to each newly created task
 var createTaskActions = function(taskId) {
     // create new div as container for elements and give class name
     var actionContainerEl = document.createElement("div");
@@ -89,6 +91,25 @@ var createTaskActions = function(taskId) {
     return actionContainerEl;
 };
 
+// function to determine and run individual tasks buttons 
+var taskButtonHandler = function(event) {
+    // if clicked target matches delete-btn class
+    if(event.target.matches(".delete-btn")) {
+        // get the clicked element task id
+        var taskId = event.target.getAttribute("data-task-id");
+        deleteTask(taskId);
+    }
+};
+
+// function that deletes the task
+var deleteTask = function(taskId) {
+    var taskSelected = document.querySelector(`.task-item[data-task-id="${taskId}"]`);
+    taskSelected.remove();
+};
+
 // observe submit event listener behavior specific to the button, then run createTaskHandler function
 formEl.addEventListener("submit", taskFormHandler);
+
+// event listener for the individual tasks buttons, run button function
+pageContentEl.addEventListener("click", taskButtonHandler);
 
