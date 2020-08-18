@@ -1,7 +1,9 @@
 // get the entire form input for the task submit, store in var
 var formEl = document.querySelector("#task-form");
-// get the task "To Do" section list, store in var
+// get each task section (to do, in progress, completed) list and store in its own var
 var tasksToDoEl = document.querySelector("#tasks-to-do");
+var tasksInProgressEl = document.querySelector("#tasks-in-progress");
+var tasksCompletedEl = document.querySelector("#tasks-completed");
 // var for taskIdCounter
 var taskIdCounter = 0;
 // get the main section of the page, store in var
@@ -153,9 +155,28 @@ var deleteTask = function(taskId) {
     taskSelected.remove();
 };
 
+// function for change of task status
+var taskStatusChangeHandler = function(event) {
+    // get the task item id
+    var taskId =  event.target.getAttribute("data-task-id");
+    // get the currently selected option value and convert to lowercase
+    var statusValue = event.target.value.toLowerCase();
+    // find the parent task item element based on the id
+    var taskSelected = document.querySelector(`.task-item[data-task-id="${taskId}"]`);
+    // depending on what status is selected, move to that list column
+    if(statusValue === "to do") {
+        tasksToDoEl.appendChild(taskSelected);
+    } else if(statusValue === "in progress") {
+        tasksInProgressEl.appendChild(taskSelected);
+    } else if(statusValue === "completed") {
+        tasksCompletedEl.appendChild(taskSelected);
+    }
+};
+
 // observe submit event listener behavior specific to the button, then run createTaskHandler function
 formEl.addEventListener("submit", taskFormHandler);
-
 // event listener for the individual tasks buttons, run button function
 pageContentEl.addEventListener("click", taskButtonHandler);
+// event listener for change of status of task
+pageContentEl.addEventListener("change", taskStatusChangeHandler);
 
