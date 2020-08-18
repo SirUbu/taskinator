@@ -178,11 +178,14 @@
     };
     // function for the "drop zone" of a dragged item
     var dropZoneDragHandler = function(event) {
-        // ensure task is being dropped in an area where there is a parent element with the class .task-list
+        // ensure task is being dragged over an area where there is a parent element with the class .task-list
         var taskListEl = event.target.closest(".task-list");
-        // if being dropped in appropriate area, prevent default operation
+        // if being dragged over an appropriate area...
         if(taskListEl) {
+            // prevent dropped item from returning to original place
             event.preventDefault();
+            // change style of area 
+            taskListEl.setAttribute("style", "background: rgba(68, 233, 255, 0.7); border-style: dashed;");
         }
     };
     // function for the drop of an item
@@ -205,10 +208,18 @@
         } else if(statusType === "tasks-completed") {
             statusSelectEl.selectedIndex = 2;
         }
+        // remove styling set during drag 
+        dropZoneEl.removeAttribute("style");
         // append the task to the intended drop zone
         dropZoneEl.appendChild(draggableElement);
     };
-
+    // function for when the dragged item leaves an drop zone
+    var dragLeaveHandler = function(event) {
+        var taskListEl = event.target.closest(".task-list");
+        if(taskListEl) {
+            taskListEl.removeAttribute("style");
+        }
+    };
 // EVENT LISTENERS
     // observe submit event listener behavior specific to the button, then run createTaskHandler function
     formEl.addEventListener("submit", taskFormHandler);
@@ -222,4 +233,5 @@
     pageContentEl.addEventListener("dragover", dropZoneDragHandler);
     // event listener for the drop of a dragged item, run drop task function
     pageContentEl.addEventListener("drop", dropTaskHandler);
-
+    // event listener for the dragged item leaving a drop zone, run drip leave function
+    pageContentEl.addEventListener("dragleave", dragLeaveHandler);
