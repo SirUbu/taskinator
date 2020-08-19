@@ -73,6 +73,8 @@
         taskDataObj.id = taskIdCounter;
         // push to the taskDataObj
         tasks.push(taskDataObj);
+        // run function to save tasks array to localStorage 
+        saveTasks();
         // increase task counter for next unique id
         taskIdCounter++;
     };
@@ -154,6 +156,8 @@
                 tasks[i].type = taskType;
             }
         };
+        // run function to save tasks array to localStorage 
+        saveTasks();
         alert("Task Updated!");
         // reset form and change button back
         formEl.removeAttribute("data-task-id");
@@ -176,6 +180,8 @@
         }
         // reassign tasks array to be the same as updatedTaskArr
         tasks = updatedTaskArr;
+        // run function to save tasks array to localStorage 
+        saveTasks();
     };
     // function for change of task status
     var taskStatusChangeHandler = function(event) {
@@ -199,6 +205,8 @@
                 tasks[i].status = statusValue;
             }
         };
+        // run function to save tasks array to localStorage 
+        saveTasks();
     };
     // function for drag and drop of task
     var dragTaskHandler = function(event) {
@@ -249,6 +257,8 @@
                 tasks[i].status = statusSelectEl.value.toLowerCase();
             }
         };
+        // run function to save tasks array to localStorage 
+        saveTasks();
     };
     // function for when the dragged item leaves an drop zone
     var dragLeaveHandler = function(event) {
@@ -257,6 +267,11 @@
             taskListEl.removeAttribute("style");
         }
     };
+    // function to save tasks array to localStorage
+    var saveTasks = function() {
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+    }
+
 // EVENT LISTENERS
     // observe submit event listener behavior specific to the button, then run createTaskHandler function
     formEl.addEventListener("submit", taskFormHandler);
