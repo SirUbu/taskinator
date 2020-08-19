@@ -270,7 +270,46 @@
     // function to save tasks array to localStorage
     var saveTasks = function() {
         localStorage.setItem("tasks", JSON.stringify(tasks));
-    }
+    };
+    // function to load saved tasks array from localStorage
+    var loadTasks = function() {
+        // get task items from localStorage
+        tasks = localStorage.getItem("tasks");
+        // check if tasks is null/falsy, if so make tasks an empty array again
+        if(!tasks) {
+            tasks = [];
+            return false;
+        }
+        // convert tasks from stringified format back into an array of objects
+        tasks = JSON.parse(tasks);
+        // Iterate through tasks array and create task elements on the page from it
+        for(var i = 0; i < tasks.length; i++) {
+            taskIdCounter = tasks[i].id;
+            var listItemEl = document.createElement("li");
+            listItemEl.className = "task-item";
+            listItemEl.setAttribute("data-task-id", tasks[i].id);
+            listItemEl.setAttribute("draggable", "true");
+            var taskInfoEl = document.createElement("div");
+            taskInfoEl.className = "task-info";
+            taskInfoEl.innerHTML = `<h3 class="task-name">${tasks[i].name}</h3><span class="task-type">${tasks[i].type}</span>`;
+            listItemEl.appendChild(taskInfoEl);
+            var taskActionsEl = createTaskActions(tasks[i].id);
+            listItemEl.appendChild(taskActionsEl);
+            var statusValue = tasks[i].status.toLowerCase();
+            var statusSelectEl = listItemEl.querySelector(`select[name="status-change"]`);
+            if(statusValue === "to do") {
+                statusSelectEl.selectedIndex = 0;
+                tasksToDoEl.appendChild(listItemEl);
+            } else if(statusValue === "in progress") {
+                statusSelectEl.selectedIndex = 1;
+                tasksInProgressEl.appendChild(listItemEl);
+            } else if(statusValue === "completed") {
+                statusSelectEl.selectedIndex = 2;
+                tasksCompletedEl.appendChild(listItemEl);
+            }
+            taskIdCounter++;
+        };
+    };
 
 // EVENT LISTENERS
     // observe submit event listener behavior specific to the button, then run createTaskHandler function
@@ -287,3 +326,7 @@
     pageContentEl.addEventListener("drop", dropTaskHandler);
     // event listener for the dragged item leaving a drop zone, run drip leave function
     pageContentEl.addEventListener("dragleave", dragLeaveHandler);
+    // call the loadTasks function to update the tasks array at the load of the page
+
+// call the loadTasks function
+loadTasks();
