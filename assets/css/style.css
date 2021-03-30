@@ -96,7 +96,7 @@ footer {
 .task-list {
   list-style: none;
   padding: 15px;
-  min-height: calc(100vh - 382px);
+  min-height: calc(100vh - 410px);
   background: rgb(196, 196, 196);
   border-radius: 12px;
   border: 2px solid var(--grey);
