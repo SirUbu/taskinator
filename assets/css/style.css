@@ -16,7 +16,6 @@ body {
   margin: 0;
   padding: 0;
   display: flex;
-  min-height: 100vh;
   flex-direction: column;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
@@ -97,7 +96,7 @@ footer {
 .task-list {
   list-style: none;
   padding: 15px;
-  height: calc(100% - 50px);
+  min-height: calc(100vh - 382px);
   background: rgb(196, 196, 196);
   border-radius: 12px;
   border: 2px solid var(--grey);
