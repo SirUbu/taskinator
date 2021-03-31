@@ -16,6 +16,7 @@ body {
   margin: 0;
   padding: 0;
   display: flex;
+  min-height: 100vh;
   flex-direction: column;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
@@ -96,7 +97,7 @@ footer {
 .task-list {
   list-style: none;
   padding: 15px;
-  min-height: calc(100vh - 420px);
+  height: calc(100% - 50px);
   background: rgb(196, 196, 196);
   border-radius: 12px;
   border: 2px solid var(--grey);
@@ -215,10 +216,6 @@ footer {
   font-size: 2rem;
 }
 
-main {
-  display: flex;
-}
-
 @media screen and (max-width: 980px) {
   form .form-group {
     flex: 1 100%;
@@ -226,10 +223,6 @@ main {
 
   form .form-group button {
     width: 100%;
-  }
-
-  main {
-    flex-wrap: wrap;
   }
 
   .task-list-wrapper {

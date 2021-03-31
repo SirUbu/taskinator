@@ -1,6 +1,7 @@
 // DOM query selectors
 var formEl = document.querySelector("#task-form");
 var tasksToDoEl = document.querySelector("#tasks-to-do");
+var pageContentEl = document.querySelector("#page-content");
 
 // global variables
 var taskIdCounter = 0;
@@ -30,7 +31,7 @@ var taskFormHandler = function(event) {
 
     // send as argument to createTaskEl function
     createTaskEl(taskDataObj);
-}
+};
 
 // function to create and add the form data to the DOM
 var createTaskEl = function(taskDataObj) {
@@ -59,7 +60,7 @@ var createTaskEl = function(taskDataObj) {
 
     // increment task counter for next unique id
     taskIdCounter++;
-}
+};
 
 // function to dynamically add form elements to each task
 var createTaskActions = function(taskId) {
@@ -103,7 +104,26 @@ var createTaskActions = function(taskId) {
     }
 
     return actionContainerEl;
-}
+};
+
+// function to handle task button clicking
+var taskButtonHandler = function(event) {
+    // check if event target is a delete button
+    if (event.target.matches(".delete-btn")) {
+        // get the element's task id
+        var taskId = event.target.getAttribute("data-task-id");
+        // pass taskId into deleteTask function
+        deleteTask(taskId);
+    }
+};
+
+// function to delete a DOM element
+var deleteTask = function(taskId) {
+    // use taskId to select task to be deleted and remove it
+    var taskSelected = document.querySelector(`.task-item[data-task-id="${taskId}"]`);
+    taskSelected.remove();
+};
 
 // event listeners
 formEl.addEventListener("submit", taskFormHandler);
+pageContentEl.addEventListener("click", taskButtonHandler);
