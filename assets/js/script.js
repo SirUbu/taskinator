@@ -44,6 +44,22 @@ var taskFormHandler = function(event) {
     }
 };
 
+// function to edit existing task with form inputs
+var completeEditTask = function(taskName, taskType, taskId) {
+    // find the marching task list item
+    var taskSelected = document.querySelector(`.task-item[data-task-id="${taskId}"]`);
+
+    // set new values
+    taskSelected.querySelector("h3.task-name").textContent = taskName;
+    taskSelected.querySelector("span.task-type").textContent = taskType;
+
+    alert("Task Updated!");
+
+    // reset form 
+    formEl.removeAttribute("data-task-id");
+    document.querySelector("#save-task").textContent = "Add Task";
+};
+
 // function to create and add the form data to the DOM
 var createTaskEl = function(taskDataObj) {
     // create list item
