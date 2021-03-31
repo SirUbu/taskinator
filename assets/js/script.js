@@ -68,7 +68,7 @@ var createTaskEl = function(taskDataObj) {
     var listItemEl = document.createElement("li");
     listItemEl.className = "task-item";
     
-    // add task id as a custom attrubute
+    // add task id as a custom attribute
     listItemEl.setAttribute("data-task-id", taskIdCounter);
 
     // crate div to hold info and add to list
@@ -76,12 +76,11 @@ var createTaskEl = function(taskDataObj) {
     taskInfoEl.className = "task-info";
     
     // add html content to div, append to listItemEl
-    taskInfoEl.innerHTML = `<h3 class="task-name">${taskDataObj.name} </h3><span class="task-type">${taskDataObj.type} </span>`;
+    taskInfoEl.innerHTML = `<h3 class="task-name">${taskDataObj.name}</h3><span class="task-type">${taskDataObj.type}</span>`;
     listItemEl.appendChild(taskInfoEl)
     
     var taskActionEl = createTaskActions(taskIdCounter);
     listItemEl.appendChild(taskActionEl);
-
     tasksToDoEl.appendChild(listItemEl);
 
     // append entire listItemEl to tasksToDoEl
@@ -166,7 +165,7 @@ var editTask = function(taskId) {
     document.querySelector(`select[name="task-type"]`).value = taskType;
 
     // change submit button to Save Task
-    document.querySelector("#save-task").textContent = "Save Task";
+    formEl.querySelector("#save-task").textContent = "Save Task";
 
     // include tasks id
     formEl.setAttribute("data-task-id", taskId);
