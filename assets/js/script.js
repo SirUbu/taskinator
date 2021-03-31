@@ -57,13 +57,14 @@ var completeEditTask = function(taskName, taskType, taskId) {
     taskSelected.querySelector("h3.task-name").textContent = taskName;
     taskSelected.querySelector("span.task-type").textContent = taskType;
 
-    // loop through tasks array and task object with new content
+    // loop through tasks array and task object with new content, save array
     for (var i = 0; i < tasks.length; i++) {
         if (tasks[i].id === parseInt(taskId)) {
             tasks[i].name = taskName;
             tasks[i].type = taskType;
         }
     }
+    saveTasks();
 
     alert("Task Updated!");
 
@@ -89,9 +90,10 @@ var createTaskEl = function(taskDataObj) {
     taskInfoEl.innerHTML = `<h3 class="task-name">${taskDataObj.name}</h3><span class="task-type">${taskDataObj.type}</span>`;
     listItemEl.appendChild(taskInfoEl)
 
-    // add task ID to task object, push to array
+    // add task ID to task object, push to array and save array
     taskDataObj.id = taskIdCounter;
     tasks.push(taskDataObj);
+    saveTasks();
     
     var taskActionEl = createTaskActions(taskIdCounter);
     listItemEl.appendChild(taskActionEl);
@@ -202,8 +204,9 @@ var deleteTask = function(taskId) {
         }
     }
 
-    // reassign tasks array with new updated array
+    // reassign tasks array with new updated array and save array
     tasks = updatedTaskArr;
+    saveTasks();
 };
 
 // function to handle change of task status drop down
@@ -226,12 +229,18 @@ var taskStatusChangeHandler = function(event) {
         tasksCompletedEl.appendChild(taskSelected);
     }
 
-    // update task's in tasks array
+    // update task's in tasks array and save array
     for (var i = 0; i < tasks.length; i++) {
         if (tasks[i].id === parseInt(taskId)) {
             tasks[i].status = statusValue;
         }
     }
+    saveTasks();
+};
+
+// function to save data via localStorage
+var saveTasks = function() {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
 };
 
 // event listeners
