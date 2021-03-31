@@ -96,7 +96,7 @@ footer {
 .task-list {
   list-style: none;
   padding: 15px;
-  min-height: calc(100vh - 410px);
+  min-height: calc(100vh - 420px);
   background: rgb(196, 196, 196);
   border-radius: 12px;
   border: 2px solid var(--grey);
@@ -215,6 +215,10 @@ footer {
   font-size: 2rem;
 }
 
+main {
+  display: flex;
+}
+
 @media screen and (max-width: 980px) {
   form .form-group {
     flex: 1 100%;
@@ -222,6 +226,10 @@ footer {
 
   form .form-group button {
     width: 100%;
+  }
+
+  main {
+    flex-wrap: wrap;
   }
 
   .task-list-wrapper {
